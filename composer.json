@@ -3,7 +3,7 @@
   "type":"magento-module",
   "license":"GPL-3.0",
   "homepage":"https://github.com/magehost/magehost_cachemate",
-  "description":"MageHost_CacheMate: Performance improvement by caching big blocks in Magento.",
+  "description":"MageHost_CacheMate: Log and filter cache flushes.",
   "authors":[
     {
       "name":"MageHost.pro - Jeroen Vermeulen",
