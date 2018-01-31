@@ -1,11 +1,11 @@
-## MageHost_BlockCache Extension - Performance Improvement by better block caching in Magento CE
-## Copyright MagentoHosting.pro / MagentoHosting.pro
+## MageHost_CacheMate Extension - Performance Improvement by better block caching in Magento CE
+## Copyright MageHost.pro / MageHost.pro
 
-app/etc/modules/MageHost_BlockCache.xml                              app/etc/modules/MageHost_BlockCache.xml
-app/code/community/MageHost/BlockCache/                              app/code/community/MageHost/BlockCache/
-app/design/frontend/base/default/layout/magehost/blockcache.xml      app/design/frontend/base/default/layout/magehost/blockcache.xml
-app/design/adminhtml/default/default/layout/magehost/blockcache.xml  app/design/adminhtml/default/default/layout/magehost/blockcache.xml
-app/design/adminhtml/default/default/template/magehost/blockcache/   app/design/adminhtml/default/default/template/magehost/blockcache/
+app/etc/modules/MageHost_CacheMate.xml                              app/etc/modules/MageHost_CacheMate.xml
+app/code/community/MageHost/CacheMate/                              app/code/community/MageHost/CacheMate/
+app/design/frontend/base/default/layout/magehost/cachemate.xml      app/design/frontend/base/default/layout/magehost/cachemate.xml
+app/design/adminhtml/default/default/layout/magehost/cachemate.xml  app/design/adminhtml/default/default/layout/magehost/cachemate.xml
+app/design/adminhtml/default/default/template/magehost/cachemate/   app/design/adminhtml/default/default/template/magehost/cachemate/
 app/code/community/MageHost/Cm/Cache/Backend/File.php                app/code/community/MageHost/Cm/Cache/Backend/File.php
 app/code/community/MageHost/Cm/Cache/Backend/Redis.php               app/code/community/MageHost/Cm/Cache/Backend/Redis.php
 app/code/community/Cm/Cache/Backend/File.php                         app/code/community/Cm/Cache/Backend/File.php

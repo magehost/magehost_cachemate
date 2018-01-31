@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  MageHost_CacheMate
+
+  DISCLAIMER
+
+  Do not edit or add to this file if you wish to upgrade this Module to
+  newer versions in the future.
+
+  @category     MageHost
+  @package      MageHost_CacheMate
+  @copyright    Copyright (c) 2018 MageHost.pro (https://magehost.pro)
+-->
+<!--suppress XmlUnboundNsPrefix, CheckTagEmptyBody -->
+<config>
+    <modules>
+        <MageHost_CacheMate>
+            <version>1.18.0</version>
+        </MageHost_CacheMate>
+    </modules>
+    <global>
+        <blocks>
+            <magehost_cachemate>
+                <class>MageHost_CacheMate_Block</class>
+            </magehost_cachemate>
+        </blocks>
+        <models>
+            <magehost_cachemate>
+                <class>MageHost_CacheMate_Model</class>
+            </magehost_cachemate>
+        </models>
+        <helpers>
+            <magehost_cachemate>
+                <class>MageHost_CacheMate_Helper</class>
+            </magehost_cachemate>
+        </helpers>
+        <events>
+            <magehost_clean_backend_cache_before>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cleanBackendCache</method>
+                    </magehost_cachemate>
+                </observers>
+            </magehost_clean_backend_cache_before>
+            <magehost_cache_miss_mh>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheMiss</method>
+                    </magehost_cachemate>
+                </observers>
+            </magehost_cache_miss_mh>
+            <magehost_cache_save_block>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheSave</method>
+                    </magehost_cachemate>
+                </observers>
+            </magehost_cache_save_block>
+            <clean_catalog_images_cache_after>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cleanCatalogImagesCacheAfter</method>
+                    </magehost_cachemate>
+                </observers>
+            </clean_catalog_images_cache_after>
+        </events>
+    </global>
+    <default>
+        <magehost_cachemate>
+            <logging>
+                <misses>0</misses>
+                <flushes>0</flushes>
+                <tags>0</tags>
+            </logging>
+            <flushes>
+                <catalog_category>1</catalog_category>
+                <catalog_product>1</catalog_product>
+                <cms_page>1</cms_page>
+                <cms_block>1</cms_block>
+                <translate>0</translate>
+                <store>0</store>
+                <website>0</website>
+                <block_html>0</block_html>
+                <mage>0</mage>
+                <_without_tags>0</_without_tags>
+            </flushes>
+        </magehost_cachemate>
+    </default>
+</config>
