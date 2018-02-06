@@ -25,4 +25,6 @@ This Extension also adds functionality to log & filter cache flushes:
 * Entire Magento Cache
 * Wipe Cache Storage
 
-It does this by extending [Cm_Cache_Backend_File](https://github.com/colinmollenhour/Cm_Cache_Backend_File) or [Cm_Cache_Backend_Redis](https://github.com/colinmollenhour/Cm_Cache_Backend_Redis)
+It does this by extending [Cm_Cache_Backend_File](https://github.com/colinmollenhour/Cm_Cache_Backend_File) or [Cm_Cache_Backend_Redis](https://github.com/colinmollenhour/Cm_Cache_Backend_Redis).
+
+Additionally this extension logs flushes to [Turpentine](https://github.com/nexcess/magento-turpentine). 

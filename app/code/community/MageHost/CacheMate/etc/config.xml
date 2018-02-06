@@ -15,7 +15,7 @@
 <config>
     <modules>
         <MageHost_CacheMate>
-            <version>1.18.0</version>
+            <version>1.19.0</version>
         </MageHost_CacheMate>
     </modules>
     <global>
@@ -35,6 +35,7 @@
             </magehost_cachemate>
         </helpers>
         <events>
+            <!-- MageHost_Cm_Cache_Backend_XXX -->
             <magehost_clean_backend_cache_before>
                 <observers>
                     <magehost_cachemate>
@@ -62,15 +63,179 @@
                     </magehost_cachemate>
                 </observers>
             </magehost_cache_save_block>
+            <!-- Core -->
+            <adminhtml_cache_flush_all>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </adminhtml_cache_flush_all>
+            <adminhtml_cache_flush_system>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </adminhtml_cache_flush_system>
+            <adminhtml_cache_refresh_type>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </adminhtml_cache_refresh_type>
+            <clean_media_cache_after>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </clean_media_cache_after>
             <clean_catalog_images_cache_after>
                 <observers>
                     <magehost_cachemate>
                         <type>singleton</type>
                         <class>magehost_cachemate/observer</class>
-                        <method>cleanCatalogImagesCacheAfter</method>
+                        <method>cacheFlushEvent</method>
                     </magehost_cachemate>
                 </observers>
             </clean_catalog_images_cache_after>
+            <clean_configurable_swatches_cache_after>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </clean_configurable_swatches_cache_after>
+            <application_clean_cache>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </application_clean_cache>
+            <core_clean_cache>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </core_clean_cache>
+            <!-- Turpentine -->
+            <turpentine_varnish_flush_all>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </turpentine_varnish_flush_all>
+            <turpentine_varnish_flush_partial>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </turpentine_varnish_flush_partial>
+            <turpentine_varnish_flush_content_type>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </turpentine_varnish_flush_content_type>
+            <turpentine_ban_product_cache>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </turpentine_ban_product_cache>
+            <turpentine_ban_product_cache_check_stock>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </turpentine_ban_product_cache_check_stock>
+            <turpentine_ban_category_cache>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </turpentine_ban_category_cache>
+            <turpentine_ban_media_cache>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </turpentine_ban_media_cache>
+            <turpentine_ban_catalog_images_cache>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </turpentine_ban_catalog_images_cache>
+            <turpentine_ban_cms_page_cache>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </turpentine_ban_cms_page_cache>
+            <turpentine_ban_all_cache>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </turpentine_ban_all_cache>
+            <turpentine_ban_esi_cache>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </turpentine_ban_esi_cache>
         </events>
     </global>
     <default>

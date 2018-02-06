@@ -91,7 +91,7 @@ class MageHost_CacheMate_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         if ( Mage::getStoreConfigFlag(self::CONFIG_SECTION.'/logging/flushes') && class_exists('Zend_Log') ) {
-            $message = 'Cache flush.  Tags:' . $this->logTags($oldTags,$prefix);
+            $message = 'Magento cache flush.  Tags:' . $this->logTags($oldTags,$prefix);
             if ( $changed ) {
                 $message .= '  AfterFilter:' . $this->logTags($tags,$prefix);
             }
@@ -100,10 +100,76 @@ class MageHost_CacheMate_Model_Observer extends Mage_Core_Model_Abstract
             }
             $message .= $this->getLogSuffix();
             Mage::log( $message, Zend_Log::INFO, self::FLUSH_LOG_FILE );
+            Mage::register('MageHost_CacheMate_Logged',__FUNCTION__,true);
         }
 
         /** @noinspection PhpUndefinedMethodInspection */
         $transport->setTags($tags);
+    }
+
+    /**
+     * Event listener for simple cache flush events, without extra data
+     * @param Varien_Event_Observer $observer
+     */
+    public function cacheFlushEvent($observer) {
+        static $eventLogMessage = array(
+            'adminhtml_cache_flush_system' => '[Flush Magento Cache] via System > Cache Management',
+            'adminhtml_cache_flush_all' => '[Flush Cache Storage] via System > Cache Management',
+            'adminhtml_cache_refresh_type' => 'Refresh via System > Cache Management',
+            'application_clean_cache' => 'Clean application cache',
+            'core_clean_cache' => 'Core cache clean cronjob',
+            'clean_configurable_swatches_cache_after' => 'Clean Swatch Images cache',
+            'clean_media_cache_after' => 'Clean JavaScript/CSS cache',
+            'clean_catalog_images_cache_after' => 'Clean Catalog Images cache',
+            'turpentine_varnish_flush_all' => 'Turpentine full flush',
+            'turpentine_varnish_flush_partial' => 'Turpentine partial flush',
+            'turpentine_varnish_flush_content_type' => 'Turpentine flush content type',
+            'turpentine_ban_product_cache' => 'Turpentine ban Product cache',
+            'turpentine_ban_product_cache_check_stock' => 'Turpentine ban Product Stock',
+            'turpentine_ban_category_cache' => 'Turpentine ban Category cache',
+            'turpentine_ban_media_cache' => 'Turpentine ban Media cache',
+            'turpentine_ban_catalog_images_cache' => 'Turpentine ban Catalog Images cache',
+            'turpentine_ban_cms_page_cache' => 'Turpentine ban CMS page cache',
+            'turpentine_ban_all_cache' => 'Turpentine ban all cache',
+            'turpentine_ban_esi_cache' => 'Turpentine ban ESI cache',
+        );
+        if ( Mage::getStoreConfigFlag(self::CONFIG_SECTION.'/logging/flushes')
+             && class_exists('Zend_Log') ) {
+            $eventName = $observer->getEvent()->getName();
+            if ( array_key_exists($eventName,$eventLogMessage) ) {
+                $message = $eventLogMessage[$eventName] . '.';
+            } else {
+                $message = $observer->getEvent()->getName() . '.';
+            }
+            foreach( $observer->getData() as $key => $value ) {
+                if ( $key == 'event' ) {
+                    // skip
+                }
+                elseif ( $key == 'tags' ) {
+                    if (empty($value)) {
+                        $value = array('-empty-');
+                    }
+                    $message .= sprintf('  Tags:%s', implode(',',$value));
+                }
+                elseif (preg_match('/^[\-\w]+(\.[\-\w]+)+:\d+$/',$key)) {
+                    // Turpentine IP+Port combination
+                }
+                elseif (is_scalar($value)) {
+                    $message .= sprintf('  %s=%s', $key, $value);
+                }
+            }
+            /** @var Mage_Core_Controller_Request_Http $request */
+            $request = Mage::app()->getRequest();
+            $params = $request->getParams();
+            if (isset($params['id'])) {
+                $message .= sprintf('  ID=%d', $params['id']);
+            }
+            if (isset($params['page_id'])) {
+                $message .= sprintf('  PageID=%d', $params['page_id']);
+            }
+            $message .= $this->getLogSuffix();
+            Mage::log( $message, Zend_Log::DEBUG, self::FLUSH_LOG_FILE );
+        }
     }
 
     /**
@@ -171,6 +237,7 @@ class MageHost_CacheMate_Model_Observer extends Mage_Core_Model_Abstract
     {
         if (is_null( $this->logSuffix )) {
             $this->logSuffix = '';
+            $this->logSuffix .= '  Pid:' . getmypid();
             if ($request = Mage::app()->getRequest()) {
                 if ($action = $request->getActionName()) {
                     $this->logSuffix .= '  Action:' . $request->getModuleName() . '/' . $request->getControllerName(

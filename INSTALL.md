@@ -17,8 +17,6 @@ If you have experience with Redis cache, you will understand how to do it for Re
 * `modman clone --copy --force https://github.com/magehost/magehost_cachemate`
 * If you keep your Magento code in Git: Add `.modman` to your `.gitignore`
 * Edit `app/etc/local.xml`: inside `<config><global>` add/update:<br /> `<cache><backend>MageHost_Cm_Cache_Backend_File</backend></cache>`
-* In Magento Admin: _System > Configuration > ADVANCED > Developer > Template Settings_
-  * Set `Allow Symlinks` to `Yes`
 * In Magento Admin: Flush Cache Storage
 * Log out from Magento Admin and log back in
 * Configure via: _System > Configuration > ADVANCED > MageHost CacheMate_
