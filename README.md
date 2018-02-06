@@ -6,7 +6,6 @@ Log and filter cache flushes.
 ### Installation
 
 * [Please follow this manual.](https://github.com/magehost/magehost_cachemate/blob/master/INSTALL.md)
-* [Upgrade from JeroenVermeulen CacheMate](https://github.com/magehost/magehost_cachemate/blob/master/UPGRADE.md)
 
 ### Config Settings:
 
