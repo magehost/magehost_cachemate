@@ -147,9 +147,11 @@ class MageHost_CacheMate_Model_Observer extends Mage_Core_Model_Abstract
                 }
                 elseif ( $key == 'tags' ) {
                     if (empty($value)) {
-                        $value = array('-empty-');
+                        $value = '-empty-';
+                    } elseif (is_array($value)) {
+                        $value = implode(',',$value);
                     }
-                    $message .= sprintf('  Tags:%s', implode(',',$value));
+                    $message .= sprintf('  Tags:%s', $value);
                 }
                 elseif (preg_match('/^[\-\w]+(\.[\-\w]+)+:\d+$/',$key)) {
                     // Turpentine IP+Port combination
