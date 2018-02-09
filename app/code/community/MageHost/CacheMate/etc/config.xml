@@ -15,7 +15,7 @@
 <config>
     <modules>
         <MageHost_CacheMate>
-            <version>1.20.0</version>
+            <version>1.20.1</version>
         </MageHost_CacheMate>
     </modules>
     <global>

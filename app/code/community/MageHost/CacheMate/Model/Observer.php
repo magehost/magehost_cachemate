@@ -34,14 +34,18 @@ class MageHost_CacheMate_Model_Observer extends Mage_Core_Model_Abstract
         if ( Mage::getStoreConfigFlag(self::CONFIG_SECTION.'/logging/tags') && class_exists('Zend_Log') ) {
             /** @var Mage_Core_Block_Abstract $block */
             /** @noinspection PhpUndefinedMethodInspection */
-            $block = $observer->getBlock();
-            $message = sprintf(
-                'Block  Type:%s  Tags:%s',
-                $block->getType(),
-                $this->logTags($block->getCacheTags())
-            );
-            $message .= $this->getLogSuffix();
-            Mage::log( $message, Zend_Log::INFO, self::TAGS_LOG_FILE );
+            try {
+                $block = $observer->getBlock();
+                $message = sprintf(
+                    'Block  Type:%s  Tags:%s',
+                    $block->getType(),
+                    $this->logTags($block->getCacheTags())
+                );
+                $message .= $this->getLogSuffix();
+                Mage::log( $message, Zend_Log::INFO, self::TAGS_LOG_FILE );
+            } catch (Exception $e) {
+                // Ignore if we are unable to get the block or cache tags.
+            }
         }
     }
 
