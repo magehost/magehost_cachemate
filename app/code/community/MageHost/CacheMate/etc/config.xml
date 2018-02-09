@@ -15,7 +15,7 @@
 <config>
     <modules>
         <MageHost_CacheMate>
-            <version>1.19.1</version>
+            <version>1.19.2</version>
         </MageHost_CacheMate>
     </modules>
     <global>
@@ -136,6 +136,16 @@
                     </magehost_cachemate>
                 </observers>
             </core_clean_cache>
+            <!-- Enterprise Core -->
+            <clean_cache_by_tags>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>cacheFlushEvent</method>
+                    </magehost_cachemate>
+                </observers>
+            </clean_cache_by_tags>
             <!-- Turpentine -->
             <turpentine_varnish_flush_all>
                 <observers>
