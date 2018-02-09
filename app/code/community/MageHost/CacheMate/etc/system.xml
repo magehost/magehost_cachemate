@@ -22,13 +22,6 @@
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
-                <general>
-                    <frontend_model>magehost_cachemate/adminhtml_system_config_form_fieldset_first</frontend_model>
-                    <sort_order>100</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                </general>
                 <logging translate="label comment" module="magehost_cachemate">
                     <label>Logging</label>
                     <comment>You can use this logging for debugging.&lt;br /&gt;Disable after use because logging affects performance.</comment>
@@ -38,16 +31,6 @@
                     <show_in_store>1</show_in_store>
                     <frontend_model>magehost_cachemate/adminhtml_system_config_form_fieldset_logging</frontend_model>
                     <fields>
-                        <misses translate="label comment">
-                            <label>Log Cache Misses</label>
-                            <comment>Logfile: var/log/cache_miss.log</comment>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
-                            <sort_order>10</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </misses>
                         <flushes translate="label comment">
                             <label>Log Cache Flushes</label>
                             <comment>Logfile: var/log/cache_flush.log</comment>

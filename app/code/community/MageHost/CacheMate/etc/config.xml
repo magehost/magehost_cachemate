@@ -15,7 +15,7 @@
 <config>
     <modules>
         <MageHost_CacheMate>
-            <version>1.19.2</version>
+            <version>1.20.0</version>
         </MageHost_CacheMate>
     </modules>
     <global>
@@ -45,15 +45,6 @@
                     </magehost_cachemate>
                 </observers>
             </magehost_clean_backend_cache_before>
-            <magehost_cache_miss_mh>
-                <observers>
-                    <magehost_cachemate>
-                        <type>singleton</type>
-                        <class>magehost_cachemate/observer</class>
-                        <method>cacheMiss</method>
-                    </magehost_cachemate>
-                </observers>
-            </magehost_cache_miss_mh>
             <magehost_cache_save_block>
                 <observers>
                     <magehost_cachemate>
@@ -248,10 +239,22 @@
             </turpentine_ban_esi_cache>
         </events>
     </global>
+    <frontend>
+        <events>
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <magehost_cachemate>
+                        <type>singleton</type>
+                        <class>magehost_cachemate/observer</class>
+                        <method>coreBlockAbstractToHtmlBefore</method>
+                    </magehost_cachemate>
+                </observers>
+            </core_block_abstract_to_html_before>
+        </events>
+    </frontend>
     <default>
         <magehost_cachemate>
             <logging>
-                <misses>0</misses>
                 <flushes>0</flushes>
                 <tags>0</tags>
             </logging>

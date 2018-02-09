@@ -27,11 +27,31 @@ class MageHost_CacheMate_Model_Observer extends Mage_Core_Model_Abstract
     var $filterUrl = array();
 
     /**
+     * Event listener to log cache tags
+     * @param Varien_Event_Observer $observer
+     */
+    public function coreBlockAbstractToHtmlBefore($observer) {
+        if ( Mage::getStoreConfigFlag(self::CONFIG_SECTION.'/logging/tags') && class_exists('Zend_Log') ) {
+            /** @var Mage_Core_Block_Abstract $block */
+            /** @noinspection PhpUndefinedMethodInspection */
+            $block = $observer->getBlock();
+            $message = sprintf(
+                'Block  Type:%s  Tags:%s',
+                $block->getType(),
+                $this->logTags($block->getCacheTags())
+            );
+            $message .= $this->getLogSuffix();
+            Mage::log( $message, Zend_Log::INFO, self::TAGS_LOG_FILE );
+        }
+    }
+
+    /**
      * Event listener to filter cache flushes
      * @param Varien_Event_Observer $observer
+     * @throws Mage_Core_Exception
      * @throws Zend_Cache_Exception
      */
-    public function cleanBackendCache( $observer ) {
+    public function cleanBackendCache($observer) {
         /** @noinspection PhpUndefinedMethodInspection */
         $transport = $observer->getTransport();
         /** @noinspection PhpUndefinedMethodInspection */
@@ -146,12 +166,7 @@ class MageHost_CacheMate_Model_Observer extends Mage_Core_Model_Abstract
                     // skip
                 }
                 elseif ( $key == 'tags' ) {
-                    if (empty($value)) {
-                        $value = '-empty-';
-                    } elseif (is_array($value)) {
-                        $value = implode(',',$value);
-                    }
-                    $message .= sprintf('  Tags:%s', $value);
+                    $message .= sprintf('  Tags:%s', $this->logTags($value));
                 }
                 elseif (preg_match('/^[\-\w]+(\.[\-\w]+)+:\d+$/',$key)) {
                     // Turpentine IP+Port combination
@@ -171,19 +186,6 @@ class MageHost_CacheMate_Model_Observer extends Mage_Core_Model_Abstract
             }
             $message .= $this->getLogSuffix();
             Mage::log( $message, Zend_Log::DEBUG, self::FLUSH_LOG_FILE );
-        }
-    }
-
-    /**
-     * Event listener used to log cache misses
-     * @param Varien_Event_Observer $observer
-     */
-    public function cacheMiss( $observer ) {
-        $id = $observer->getId();
-        if ( Mage::getStoreConfigFlag(self::CONFIG_SECTION.'/logging/misses') && class_exists('Zend_Log') ) {
-            $message = 'Cache miss.  Id:' . $id;
-            $message .= $this->getLogSuffix();
-            Mage::log( $message, Zend_Log::INFO, self::MISS_LOG_FILE );
         }
     }
 
@@ -218,9 +220,12 @@ class MageHost_CacheMate_Model_Observer extends Mage_Core_Model_Abstract
         if ( empty($tags) ) {
             return '-empty-';
         } else {
+            if (is_scalar($tags)) {
+                $tags = array($tags);
+            }
+            $cleanTags = array();
             if ( $prefix ) {
                 $preg      = '/^' . preg_quote( $prefix, '/' ) . '/';
-                $cleanTags = array();
                 foreach ($tags as $tag) {
                     $cleanTags[ ] = preg_replace( $preg, '', $tag );
                 }
@@ -258,18 +263,6 @@ class MageHost_CacheMate_Model_Observer extends Mage_Core_Model_Abstract
         }
         return strval($this->logSuffix);
     }
-
-    /**
-     * @param  string|null $url
-     * @return bool
-     */
-    protected function isFlushUrl( $url = null ) {
-        if ( is_null($url) ) {
-            $url = $this->getCurrentUrl();
-        }
-        return ( preg_match( '/\?.*mhflush/', $url ) || !empty( $_COOKIE['mhflush'] ) );
-    }
-
 
     protected function isAdmin( $url=null ) {
         if ( is_null($url) ) {
