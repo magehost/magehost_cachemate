@@ -45,15 +45,6 @@
                     </magehost_cachemate>
                 </observers>
             </magehost_clean_backend_cache_before>
-            <magehost_cache_save_block>
-                <observers>
-                    <magehost_cachemate>
-                        <type>singleton</type>
-                        <class>magehost_cachemate/observer</class>
-                        <method>cacheSave</method>
-                    </magehost_cachemate>
-                </observers>
-            </magehost_cache_save_block>
             <!-- Core -->
             <adminhtml_cache_flush_all>
                 <observers>
