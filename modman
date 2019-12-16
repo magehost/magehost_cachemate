@@ -3,10 +3,7 @@
 
 app/etc/modules/MageHost_CacheMate.xml                              app/etc/modules/MageHost_CacheMate.xml
 app/code/community/MageHost/CacheMate/                              app/code/community/MageHost/CacheMate/
-app/design/frontend/base/default/layout/magehost/cachemate.xml      app/design/frontend/base/default/layout/magehost/cachemate.xml
-app/design/adminhtml/default/default/layout/magehost/cachemate.xml  app/design/adminhtml/default/default/layout/magehost/cachemate.xml
-app/design/adminhtml/default/default/template/magehost/cachemate/   app/design/adminhtml/default/default/template/magehost/cachemate/
-app/code/community/MageHost/Cm/Cache/Backend/File.php                app/code/community/MageHost/Cm/Cache/Backend/File.php
-app/code/community/MageHost/Cm/Cache/Backend/Redis.php               app/code/community/MageHost/Cm/Cache/Backend/Redis.php
-app/code/community/Cm/Cache/Backend/File.php                         app/code/community/Cm/Cache/Backend/File.php
-shell/mh_redis_cache_clean.php                                       shell/mh_redis_cache_clean.php
+app/code/community/MageHost/Cm/Cache/Backend/File.php               app/code/community/MageHost/Cm/Cache/Backend/File.php
+app/code/community/MageHost/Cm/Cache/Backend/Redis.php              app/code/community/MageHost/Cm/Cache/Backend/Redis.php
+app/code/community/Cm/Cache/Backend/File.php                        app/code/community/Cm/Cache/Backend/File.php
+shell/mh_redis_cache_clean.php                                      shell/mh_redis_cache_clean.php
